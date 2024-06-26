@@ -8,4 +8,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Images\DefaultFractal.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\DefaultFractal.jpg" />
+  </ItemGroup>
+
 </Project>

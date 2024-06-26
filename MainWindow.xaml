@@ -5,8 +5,123 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FractalViewer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="768" Width="1366">
+
+    <Grid Background="#000000">
+
+        <Grid.ColumnDefinitions>
+
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+
+            <Grid Grid.Column="0" MinHeight="640" Width="Auto">
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="12*" />
+
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Background="#000000">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="0.5*" />
+                            <RowDefinition Height="0.2*" />
+                            <RowDefinition Height="0.3*" />
+                            <RowDefinition Height="0.3*" />
+
+                            <RowDefinition Height="0.3*" />
+                            <RowDefinition Height="0.3*" />
+
+
+                            <RowDefinition Height="0.2*" />
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="0.2*" />
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="0.2*" />
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="0.2*" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="1" FontSize="30"  Foreground="White" TextAlignment="Center" VerticalAlignment="Center">
+                                Mandelbrot set
+                        </TextBlock>
+                        <TextBlock Grid.Row="0" FontSize="30" FontWeight="Bold" Foreground="White" TextAlignment="Center" VerticalAlignment="Center">
+                                Fractal
+                        </TextBlock>
+
+                        <TextBlock Grid.Row="3" FontSize="20" TextAlignment="Center" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                Max iterations
+                        </TextBlock>
+
+                        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock FontSize="20" VerticalAlignment="Center" Foreground="White" >1</TextBlock>
+                            <Slider x:Name="IterationNumberSlider" Value="100" Minimum="1" Maximum="500" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,7,0,0"/>
+                            <TextBlock FontSize="20" VerticalAlignment="Center" Foreground="White" >500</TextBlock>
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="5" FontSize="20" TextAlignment="Center" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                Bail-out radius
+                        </TextBlock>
+
+                        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock FontSize="20" VerticalAlignment="Center" Foreground="White" >1</TextBlock>
+                            <Slider x:Name="edgeValueSlider" Value="2" Minimum="1" Maximum="10" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,7,0,0"/>
+                            <TextBlock FontSize="20" VerticalAlignment="Center" Foreground="White" >10</TextBlock>
+                        </StackPanel>
+
+                        <Border Grid.Row="8" Width="250">
+
+                            <Button Cursor="Hand" Click="OnDrawFractalsClick" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                <TextBlock FontSize="25" Text="Generate fractal">
+
+                                </TextBlock>
+                            </Button>
+
+                        </Border>
+                        
+                        <Border Grid.Row="10" Width="250">
+
+                            <Button Cursor="Hand" Click="OnStartFractalsClick" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                <TextBlock FontSize="25" Text="Back to origin">
+
+                                </TextBlock>
+                            </Button>
+
+                        </Border>
+
+                        <Border Grid.Row="12" Background="#000000" CornerRadius="15" Width="250">
+
+                            <Button Cursor="Hand" Click="OnSaveFractalImageClick" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Foreground="Black" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25">
+                                            Save image
+                                    </TextBlock>
+                                </StackPanel>
+                            </Button>
+
+                        </Border>
+
+                    </Grid>
+
+                </Border>
+
+            </Grid>
+
+        </ScrollViewer>
+        <Grid Grid.Column="1" Name="CoordinateGrid">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <Canvas Name="CoordinateCanvas" Width="Auto" Height="Auto" MouseMove="CoordinateCanvas_MouseMove" PreviewMouseLeftButtonDown="CoordinateCanvas_PreviewMouseLeftButtonDown" MouseLeftButtonDown="CoordinateCanvas_MouseLeftButtonDown" MouseWheel="CoordinateCanvas_MouseWheel" MouseUp="CoordinateCanvas_MouseLeftButtonUp">
+                    <Image x:Name="CoordinateImage" Source="/Images/DefaultFractal.jpg" MouseLeftButtonDown="CoordinateImage_MouseLeftButtonDown" Width="Auto" Height="Auto" Canvas.Left="0" Canvas.Top="0" RenderTransformOrigin="0.5, 0.5"/>
+                </Canvas>
+            </ScrollViewer>
+        </Grid>
 
     </Grid>
 </Window>
