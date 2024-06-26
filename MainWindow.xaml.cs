@@ -33,7 +33,7 @@ namespace FractalViewer {
         private double xMax = 1.4;
         private double yMax = 1.3368;
 
-        private int newImageMaxSide = 1050;
+        private int newImageMaxSide = 1000;
 
         Color backgroundColor = Colors.Black;
         Color middleColor = Colors.White;
@@ -85,8 +85,6 @@ namespace FractalViewer {
             var width = 10;
             var height = 10;
 
-
-
             var rect = new Int32Rect((int)(p.X / scale + ((image.PixelWidth) - ((image.PixelWidth) / scale)) / 2 - imagePosX * (1 / scale)), (int)(p.Y / scale + ((image.PixelHeight) - ((image.PixelHeight) / scale)) / 2 - imagePosY * (1 / scale)), width, height);
 
             Color color = Colors.Red;
@@ -114,28 +112,13 @@ namespace FractalViewer {
 
         private void OnDrawFractalsClick(object sender, RoutedEventArgs e) {
 
-            Debug.WriteLine(xMin + " " + xMax);
-            Debug.WriteLine(yMin + " " + yMax);
-
-            Debug.WriteLine("Image size");
-            Debug.WriteLine(imageWidth + " " + imageHeight);
-
             Point pMin = GetPointOnCoordinateImage(new Point(0, 0));
             Point pMax = GetPointOnCoordinateImage(new Point(CoordinateCanvas.ActualWidth, CoordinateCanvas.ActualHeight));
-            Debug.WriteLine("Point");
-            Debug.WriteLine(pMin.X + " " + pMin.Y);
-            Debug.WriteLine(pMax.X + " " + pMax.Y);
-            Debug.WriteLine("Actual");
-            Debug.WriteLine(CoordinateCanvas.ActualWidth + " " + CoordinateCanvas.ActualHeight);
 
             double xMinPercent = pMin.X / imageWidth;
             double xMaxPercent = pMax.X / imageWidth;
             double yMinPercent = pMin.Y / imageHeight;
             double yMaxPercent = pMax.Y / imageHeight;
-
-            Debug.WriteLine("Percents");
-            Debug.WriteLine(xMinPercent + " " + xMaxPercent);
-            Debug.WriteLine(yMinPercent + " " + yMaxPercent);
 
             double xMinCopy = xMin;
             double xMaxCopy = xMax;
@@ -158,8 +141,7 @@ namespace FractalViewer {
         }
 
         private BitmapImage DrawFractal(int maxIterations) {
-            Debug.WriteLine(xMin + " " + xMax);
-            Debug.WriteLine(yMin + " " + yMax);
+
             double widthD = Math.Abs(xMax - xMin);
             double heightD = Math.Abs(yMax - yMin);
 
@@ -167,10 +149,6 @@ namespace FractalViewer {
 
             int width = (int)(widthD > heightD ? newImageMaxSide : newImageMaxSide * (widthD / heightD));
             int height = (int)(heightD >= widthD ? newImageMaxSide : newImageMaxSide * (heightD / widthD));
-
-            Debug.WriteLine("NEW IMAGE SIZE");
-            Debug.WriteLine(width + " " + height);
-
 
             WriteableBitmap writableBitmap = new WriteableBitmap(width, height, 96, 96, PixelFormats.Bgra32, null);
 
@@ -316,7 +294,7 @@ namespace FractalViewer {
             Point pc = p;
 
             p = new Point((p.X / scale + ((imageWidth) - ((imageWidth) / scale)) / 2 - imagePosX * (1 / scale)), (p.Y / scale + ((imageHeight) - ((imageHeight) / scale)) / 2 - imagePosY * (1 / scale)));
-            Debug.WriteLine(p);
+
             double deltaScale = e.Delta > 0 ? 1.1 : 0.9;
             scale *= deltaScale;
 
