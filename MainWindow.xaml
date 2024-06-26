@@ -117,7 +117,7 @@
         </ScrollViewer>
         <Grid Grid.Column="1" Name="CoordinateGrid">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                <Canvas Name="CoordinateCanvas" Width="Auto" Height="Auto" MouseMove="CoordinateCanvas_MouseMove" PreviewMouseLeftButtonDown="CoordinateCanvas_PreviewMouseLeftButtonDown" MouseLeftButtonDown="CoordinateCanvas_MouseLeftButtonDown" MouseWheel="CoordinateCanvas_MouseWheel" MouseUp="CoordinateCanvas_MouseLeftButtonUp">
+                <Canvas Name="CoordinateCanvas" Background="Transparent" Width="Auto" Height="Auto" MouseMove="CoordinateCanvas_MouseMove" PreviewMouseLeftButtonDown="CoordinateCanvas_PreviewMouseLeftButtonDown" MouseLeftButtonDown="CoordinateCanvas_MouseLeftButtonDown" MouseWheel="CoordinateCanvas_MouseWheel" MouseUp="CoordinateCanvas_MouseLeftButtonUp">
                     <Image x:Name="CoordinateImage" Source="/Images/DefaultFractal.jpg" MouseLeftButtonDown="CoordinateImage_MouseLeftButtonDown" Width="Auto" Height="Auto" Canvas.Left="0" Canvas.Top="0" RenderTransformOrigin="0.5, 0.5"/>
                 </Canvas>
             </ScrollViewer>
