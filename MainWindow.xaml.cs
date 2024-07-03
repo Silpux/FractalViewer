@@ -35,10 +35,6 @@ namespace FractalViewer {
 
         private int newImageMaxSide = 1000;
 
-        Color backgroundColor = Colors.Black;
-        Color middleColor = Colors.White;
-        Color setColor = Colors.Black;
-
         public MainWindow() {
             InitializeComponent();
 
@@ -175,7 +171,7 @@ namespace FractalViewer {
                         iterations++;
                     }
 
-                    Color fractalColor = CalculateFractalColor(iterations, maxIterations);
+                    Color fractalColor = GetColor(iterations, maxIterations);
 
                     SetPixelColor(writableBitmap, i, j, fractalColor);
 
@@ -195,22 +191,49 @@ namespace FractalViewer {
 
             return ConvertWriteableBitmapToBitmapImage(writableBitmap);
         }
-        private Color CalculateFractalColor(int iterations, int maxIterations) {
-
-            double factor = (double)iterations / maxIterations;
-
-            Color interpolatedColor;
-
-            if (factor < 0.5) {
-                interpolatedColor = InterpolateColors(backgroundColor, middleColor, factor * 2);
-            }
-            else {
-                interpolatedColor = InterpolateColors(middleColor, setColor, (factor - 0.5) * 2);
+        public static Color GetColor(int iteration, int maxIterations) {
+            if (iteration == maxIterations) {
+                return Colors.Black;
             }
 
-            return interpolatedColor;
+            double t = (double)iteration / maxIterations;
+
+            //byte r = (byte)(9 * (1 - t) * t * t * t * 255);
+            //byte g = (byte)(15 * (1 - t) * (1 - t) * t * t * 255);
+            //byte b = (byte)(9 * (1 - t) * (1 - t) * (1 - t) * t * 255);
+
+            var colors = new[]
+            {
+                Colors.Black,
+
+                Colors.Orange,
+                Colors.Blue,
+                Colors.Cyan,
+                Colors.Snow,
+                Colors.Gold,
+                Colors.Orange,
+                Colors.Blue,
+                Colors.Cyan,
+                Colors.Snow,
+            };
+
+            for (int i = 0; i < colors.Length - 1; i++) {
+                if (t >= (double)i/(colors.Length - 1) && t <= (double)(i + 1) / (colors.Length - 1)) {
+
+                    double range = (double)(i + 1) / (colors.Length - 1) - (double)(i) / (colors.Length - 1);
+                    double localFactor = (t - (double)(i) / (colors.Length - 1)) / range;
+
+                    byte r = (byte)(colors[i].R + localFactor * (colors[i + 1].R - colors[i].R));
+                    byte g = (byte)(colors[i].G + localFactor * (colors[i + 1].G - colors[i].G));
+                    byte b = (byte)(colors[i].B + localFactor * (colors[i + 1].B - colors[i].B));
+
+                    return Color.FromRgb(r, g, b);
+                }
+
+            }
+
+            return Colors.Black;
         }
-
         private Color InterpolateColors(Color startColor, Color endColor, double factor) {
             byte r = InterpolateColorComponent(startColor.R, endColor.R, factor);
             byte g = InterpolateColorComponent(startColor.G, endColor.G, factor);

@@ -18,6 +18,9 @@ namespace FractalViewer.Classes
         public static Complex operator +(Complex a, Complex b) {
             return new Complex(a.Real + b.Real, a.Imaginary + b.Imaginary);
         }
+        public static Complex operator -(Complex a, Complex b) {
+            return new Complex(a.Real - b.Real, a.Imaginary - b.Imaginary);
+        }
         public static Complex operator *(Complex a, Complex b) {
             return new Complex(a.Real * b.Real - a.Imaginary * b.Imaginary, a.Real * b.Imaginary + a.Imaginary * b.Real);
         }
