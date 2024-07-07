@@ -62,8 +62,8 @@
 
                         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <TextBlock FontSize="20" VerticalAlignment="Center" Foreground="White" >1</TextBlock>
-                            <Slider x:Name="IterationNumberSlider" Value="100" Minimum="1" Maximum="500" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,7,0,0"/>
-                            <TextBlock FontSize="20" VerticalAlignment="Center" Foreground="White" >500</TextBlock>
+                            <Slider x:Name="IterationNumberSlider" Value="100" Minimum="1" Maximum="3000" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,7,0,0"/>
+                            <TextBlock FontSize="20" VerticalAlignment="Center" Foreground="White" >3000</TextBlock>
                         </StackPanel>
 
                         <TextBlock Grid.Row="5" FontSize="20" TextAlignment="Center" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">

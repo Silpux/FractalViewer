@@ -204,35 +204,56 @@ namespace FractalViewer {
 
             var colors = new[]
             {
-                Colors.Black,
+                
+                Colors.DarkRed,
+                Colors.Orange,
 
-                Colors.Orange,
-                Colors.Blue,
-                Colors.Cyan,
-                Colors.Snow,
-                Colors.Gold,
-                Colors.Orange,
-                Colors.Blue,
-                Colors.Cyan,
-                Colors.Snow,
+                Color.FromRgb(0xd2, 0xab, 0x99),
+                Color.FromRgb(0xbd, 0xbe, 0xa9),
+                Color.FromRgb(0x8d, 0xb3, 0x8b),
+                Color.FromRgb(0x56, 0x87, 0x6d),
+                Color.FromRgb(0x04, 0x72, 0x4d),
+                Color.FromRgb(0xb8, 0xd8, 0xba),
+                Color.FromRgb(0xd9, 0xdb, 0xbc),
+                Color.FromRgb(0xfc, 0xdd, 0xbc),
+                Color.FromRgb(0xef, 0x95, 0x9d),
+                Color.FromRgb(0x69, 0x58, 0x5f),
+
+
+                Color.FromRgb(0x34, 0x30, 0x90),
+                Color.FromRgb(0x5f, 0x59, 0xf7),
+                Color.FromRgb(0x65, 0x92, 0xfd),
+                Color.FromRgb(0x44, 0xc2, 0xfd),
+                Color.FromRgb(0x8c, 0x61, 0xff),
+
             };
 
-            for (int i = 0; i < colors.Length - 1; i++) {
-                if (t >= (double)i/(colors.Length - 1) && t <= (double)(i + 1) / (colors.Length - 1)) {
+            double changeFactor = 0.9;
 
-                    double range = (double)(i + 1) / (colors.Length - 1) - (double)(i) / (colors.Length - 1);
-                    double localFactor = (t - (double)(i) / (colors.Length - 1)) / range;
+            int power = 0;
 
-                    byte r = (byte)(colors[i].R + localFactor * (colors[i + 1].R - colors[i].R));
-                    byte g = (byte)(colors[i].G + localFactor * (colors[i + 1].G - colors[i].G));
-                    byte b = (byte)(colors[i].B + localFactor * (colors[i + 1].B - colors[i].B));
+            double currentFactor = changeFactor;
+            double factorReverseVal = 1 - currentFactor;
 
-                    return Color.FromRgb(r, g, b);
-                }
-
+            while (factorReverseVal < t) {
+                currentFactor *= changeFactor;
+                factorReverseVal = 1 - currentFactor;
+                power++;
             }
 
-            return Colors.Black;
+            double prevColorFactor = 1 - currentFactor / changeFactor;
+            double nextColorFactor = 1 - currentFactor;
+
+            double localFactor = (t - prevColorFactor) / (nextColorFactor - prevColorFactor);
+
+            Color c1 = power == 0 ? Colors.Black : colors[power % colors.Length];
+            Color c2 = colors[(power + 1) % colors.Length];
+
+            byte r = (byte)(c1.R + localFactor * (c2.R - c1.R));
+            byte g = (byte)(c1.G + localFactor * (c2.G - c1.G));
+            byte b = (byte)(c1.B + localFactor * (c2.B - c1.B));
+
+            return Color.FromRgb(r, g, b);
         }
         private Color InterpolateColors(Color startColor, Color endColor, double factor) {
             byte r = InterpolateColorComponent(startColor.R, endColor.R, factor);
